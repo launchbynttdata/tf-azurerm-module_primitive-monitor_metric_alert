@@ -1,6 +1,8 @@
 variable "metric_alerts" {
   type = map(object({
-    description   = string
+    name          = optional(string)
+    scopes        = optional(list(string))
+    description   = optional(string)
     action_groups = optional(set(string))
 
     criterias = optional(map(object({

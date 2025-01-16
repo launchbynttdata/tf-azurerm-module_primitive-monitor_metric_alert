@@ -18,12 +18,12 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   scopes              = each.value.scopes
   description         = each.value.description
 
-  dynamic "action" {
-    for_each = each.value.action_groups != null ? each.value.action_groups : toset([])
-    content {
-      action_group_id = action_groups.value.action_group_id
-    }
-  }
+  # dynamic "action" {
+  #   for_each = each.value.action_groups != null ? each.value.action_groups : toset([])
+  #   content {
+  #     action_group_id = action.value.id
+  #   }
+  # }
 
   dynamic "criteria" {
     for_each = each.value.criterias != null ? each.value.criterias : {}

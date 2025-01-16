@@ -52,5 +52,6 @@ module "monitor_metric_alert" {
   metric_alerts       = var.metric_alerts
   tags                = var.tags
 
+  depends_on = [module.resource_group]
   #depends_on = [module.monitor_action_group]
 }
