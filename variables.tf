@@ -1,42 +1,75 @@
-variable "metric_alerts" {
-  type = map(object({
-    name          = optional(string)
-    scopes        = optional(list(string))
-    description   = optional(string)
-    action_groups = optional(set(string))
+variable "name" {
+  type        = string
+  description = "The name of the Metric Alert."
+}
 
-    criterias = optional(map(object({
-      threshold        = number
-      metric_namespace = string
-      metric_name      = string
-      aggregation      = string
-      operator         = string
-      dimensions = map(object({
-        operator = string
-        values   = list(string)
-      }))
-    })))
+variable "scopes" {
+  type        = list(string)
+  description = "The list of resources to monitor."
+}
 
-    dynamic_criteria = optional(object({
-      alert_sensitivity = string
-      metric_name       = string
-      metric_namespace  = string
-      aggregation       = string
-      operator          = string
-      dimensions = map(object({
-        operator = string
-        values   = list(string)
-      }))
-    }))
+variable "description" {
+  type        = string
+  description = "(optional)The description of the Metric Alert."
+}
+
+variable "frequency" {
+  type        = string
+  description = "(optional)The evaluation frequency in seconds."
+}
+
+variable "severity" {
+  type        = number
+  description = "(optional)The severity of alert."
+}
+
+variable "enabled" {
+  type        = bool
+  description = "(optional)Whether the alert is enabled."
+}
+
+variable "action_group_ids" {
+  type        = string
+  description = "The list of Action Group IDs."
+}
+
+variable "webhook_properties" {
+  type        = map(string)
+  description = "(optional)The webhook properties."
+}
+
+variable "metric_namespace" {
+  type        = string
+  description = "The namespace of the metric."
+}
+
+variable "metric_name" {
+  type        = string
+  description = "The name of the metric."
+}
+
+variable "aggregation" {
+  type        = string
+  description = "The aggregation type of the metric(e.g., 'Average', 'Total')."
+}
+
+variable "operator" {
+  type        = string
+  description = "The comparison operator (e.g., 'GreaterThan')."
+}
+
+variable "threshold" {
+  type        = number
+  description = "The threshold value."
+}
+
+variable "dimensions" {
+  type = list(object({
+    name     = string
+    operator = string
+    values   = list(string)
   }))
-  default = {}
-
-  validation {
-    condition = alltrue(
-      [for alert in var.metric_alerts : !(alert.criterias == null && alert.dynamic_criteria == null)],
-    )
-    error_message = "At least one of 'criteria', 'dynamic_criteria' must be defined for all metric alerts"
-  }
+  description = "The list of metric dimensions."
 }
 
 variable "tags" {

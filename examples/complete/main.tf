@@ -19,7 +19,7 @@ module "resource_names" {
 
   logical_product_family  = var.logical_product_family
   logical_product_service = var.logical_product_service
-  region                  = var.location
+  region                  = join("", split("-", var.region))
   class_env               = var.class_env
   cloud_resource_type     = each.value.name
   instance_env            = var.instance_env
@@ -38,20 +38,39 @@ module "resource_group" {
   }
 }
 
-# module "monitor_action_group" {
-#   source              = "terraform.registry.launch.nttdata.com/module_primitive/monitor_action_group/azurerm"
-#   action_group_name   = local.action_group_name
-#   resource_group_name = local.resource_group_name
-#   action_groups       = var.action_groups
-# }
+module "monitor_action_group" {
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/monitor_action_group/azurerm"
+  version = "~> 1.0.0"
+
+  action_group_name   = var.action_group_name
+  resource_group_name = module.resource_group.name
+  short_name          = var.short_name
+  tags                = var.tags
+  arm_role_receivers  = var.arm_role_receivers
+  email_receivers     = var.email_receivers
+}
 
 module "monitor_metric_alert" {
-  source = "../.."
+  source              = "../.."
+  name                = var.name
+  resource_group_name = module.resource_group.name
+  scopes              = var.scopes
+  description         = var.description
+  frequency           = var.frequency
+  severity            = var.severity
+  enabled             = var.enabled
 
-  resource_group_name = local.resource_group_name
-  metric_alerts       = var.metric_alerts
-  tags                = var.tags
+  action_group_ids   = module.monitor_action_group.action_group_id
+  webhook_properties = var.webhook_properties
+
+
+  metric_namespace = var.metric_namespace
+  metric_name      = var.metric_name
+  aggregation      = var.aggregation
+  operator         = var.operator
+  threshold        = var.threshold
+
+  dimensions = var.dimensions
 
   depends_on = [module.resource_group]
-  #depends_on = [module.monitor_action_group]
 }

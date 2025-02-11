@@ -11,56 +11,34 @@
 // limitations under the License.
 
 resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
-  for_each = var.metric_alerts
 
-  name                = each.value.name
+  name                = var.name
   resource_group_name = var.resource_group_name
-  scopes              = each.value.scopes
-  description         = each.value.description
+  scopes              = var.scopes
+  severity            = var.severity
+  enabled             = var.enabled
+  description         = var.description
+  frequency           = var.frequency
 
-  # dynamic "action" {
-  #   for_each = each.value.action_groups != null ? each.value.action_groups : toset([])
-  #   content {
-  #     action_group_id = action.value.id
-  #   }
-  # }
-
-  dynamic "criteria" {
-    for_each = each.value.criterias != null ? each.value.criterias : {}
-    content {
-      metric_namespace = criteria.value.metric_namespace
-      metric_name      = criteria.value.metric_name
-      aggregation      = criteria.value.aggregation
-      operator         = criteria.value.operator
-      threshold        = criteria.value.threshold
-
-      dynamic "dimension" {
-        for_each = criteria.value.dimensions
-        content {
-          name     = dimension.key
-          operator = dimension.value.operator
-          values   = dimension.value.values
-        }
-      }
-    }
+  action {
+    action_group_id    = var.action_group_ids
+    webhook_properties = var.webhook_properties
   }
 
-  dynamic "dynamic_criteria" {
-    for_each = each.value.dynamic_criteria != null ? ["dynamic_criteria"] : []
-    content {
-      metric_namespace  = each.value.dynamic_criteria.metric_namespace
-      metric_name       = each.value.dynamic_criteria.metric_name
-      aggregation       = each.value.dynamic_criteria.aggregation
-      operator          = each.value.dynamic_criteria.operator
-      alert_sensitivity = each.value.dynamic_criteria.alert_sensitivity
+  criteria {
 
-      dynamic "dimension" {
-        for_each = each.value.dynamic_criteria.dimensions
-        content {
-          name     = dimension.key
-          operator = dimension.value.operator
-          values   = dimension.value.values
-        }
+    metric_namespace = var.metric_namespace
+    metric_name      = var.metric_name
+    aggregation      = var.aggregation
+    operator         = var.operator
+    threshold        = var.threshold
+
+    dynamic "dimension" {
+      for_each = var.dimensions
+      content {
+        name     = dimension.value.name
+        operator = dimension.value.operator
+        values   = dimension.value.values
       }
     }
   }
