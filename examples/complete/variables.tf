@@ -3,10 +3,10 @@ variable "name" {
   description = "The name of the Metric Alert."
 }
 
-variable "scopes" {
-  type        = list(string)
-  description = "The list of resources to monitor."
-}
+# variable "scopes" {
+#   type        = list(string)
+#   description = "The list of resources to monitor."
+# }
 
 variable "description" {
   type        = string
@@ -209,4 +209,10 @@ variable "email_receivers" {
     use_common_alert_schema = optional(bool)
   }))
   default = []
+}
+
+variable "allocation_method" {
+  type        = string
+  description = "(Optional) Defines the allocation method for this IP address. Possible values are Static or Dynamic. Defaults to Dynamic."
+  default     = "Dynamic"
 }

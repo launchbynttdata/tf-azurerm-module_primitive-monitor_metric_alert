@@ -17,16 +17,16 @@ email_receivers = [{
 
 #metric alert variables
 name                = "example-metric-alert"
-resource_group_name = module.resource_group_name.name
-scopes              = ["/subscriptions/8fad0848-88a3-4620-bee0-1e65e1206c73/resourceGroups/hygtmp-apim-northeurope-dev-001-rg-001/providers/Microsoft.Network/publicIPAddresses/hygtmp-apim-northeurope-dev-001-pip-001"]
-description         = "An example metric alert"
-frequency           = "PT5M"
-severity            = 2
-enabled             = true
-webhook_properties  = { key1 = "value1", key2 = "value2" }
+resource_group_name = module.resource_group.name
+#scopes              = ["/subscriptions/8fad0848-88a3-4620-bee0-1e65e1206c73/resourceGroups/hygtmp-apim-northeurope-dev-001-rg-001/providers/Microsoft.Network/publicIPAddresses/hygtmp-apim-northeurope-dev-001-pip-001"]
+description        = "An example metric alert"
+frequency          = "PT5M"
+severity           = 2
+enabled            = true
+webhook_properties = { key1 = "value1", key2 = "value2" }
 
-metric_namespace = "Micosoft.Network/publicIPAddresses"
-metric_name      = "ByteCount"
+metric_namespace = "micosoft.network/publicipaddresses"
+metric_name      = "PacketCount"
 aggregation      = "Average"
 operator         = "GreaterThan"
 threshold        = 80
@@ -35,6 +35,6 @@ dimensions = [{
 
   name     = "Location"
   operator = "Include"
-  values   = ["example-ip"]
+  values   = ["0.0.0.0"]
 
 }]

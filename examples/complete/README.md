@@ -19,6 +19,7 @@ No providers.
 |------|--------|---------|
 | <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | terraform.registry.launch.nttdata.com/module_library/resource_name/launch | ~> 2.0 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm | ~> 1.0 |
+| <a name="module_public_ip"></a> [public\_ip](#module\_public\_ip) | terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm | ~> 1.0 |
 | <a name="module_monitor_action_group"></a> [monitor\_action\_group](#module\_monitor\_action\_group) | terraform.registry.launch.nttdata.com/module_primitive/monitor_action_group/azurerm | ~> 1.0.0 |
 | <a name="module_monitor_metric_alert"></a> [monitor\_metric\_alert](#module\_monitor\_metric\_alert) | ../.. | n/a |
 
@@ -31,7 +32,6 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | The name of the Metric Alert. | `string` | n/a | yes |
-| <a name="input_scopes"></a> [scopes](#input\_scopes) | The list of resources to monitor. | `list(string)` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | (optional)The description of the Metric Alert. | `string` | n/a | yes |
 | <a name="input_frequency"></a> [frequency](#input\_frequency) | (optional)The evaluation frequency in seconds. | `string` | n/a | yes |
 | <a name="input_severity"></a> [severity](#input\_severity) | (optional)The severity of alert. | `number` | n/a | yes |
@@ -55,6 +55,7 @@ No resources.
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `{}` | no |
 | <a name="input_arm_role_receivers"></a> [arm\_role\_receivers](#input\_arm\_role\_receivers) | List of ARM role receivers. Each entry should have:<br>  - name (string): The name of the ARM role receiver.<br>  - role\_id (string): The ARM role ID.<br>  - use\_common\_alert\_schema (bool, optional): Whether to use the common alert schema. | <pre>list(object({<br>    name                    = string<br>    role_id                 = string<br>    use_common_alert_schema = optional(bool)<br>  }))</pre> | `[]` | no |
 | <a name="input_email_receivers"></a> [email\_receivers](#input\_email\_receivers) | List of email receivers. Each entry should have:<br>  - name (string): The name of the ARM role receiver.<br>  - email\_address (string): The email address to receive alerts.<br>  - use\_common\_alert\_schema (bool, optional): Whether to use the common alert schema. | <pre>list(object({<br>    name                    = string<br>    email_address           = string<br>    use_common_alert_schema = optional(bool)<br>  }))</pre> | `[]` | no |
+| <a name="input_allocation_method"></a> [allocation\_method](#input\_allocation\_method) | (Optional) Defines the allocation method for this IP address. Possible values are Static or Dynamic. Defaults to Dynamic. | `string` | `"Dynamic"` | no |
 
 ## Outputs
 

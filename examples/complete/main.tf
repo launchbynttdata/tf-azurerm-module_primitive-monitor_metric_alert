@@ -38,6 +38,22 @@ module "resource_group" {
   }
 }
 
+module "public_ip" {
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm"
+  version = "~> 1.0"
+
+  name                = "ip-name" #module.resource_names["public_ip"].minimal_random_suffix
+  resource_group_name = local.resource_group_name
+  location            = var.region
+  allocation_method   = var.allocation_method
+
+  # tags = merge(local.tags, {
+  #   resource_name = module.resource_names["public_ip"].minimal_random_suffix
+  # })
+
+  depends_on = [module.resource_group]
+}
+
 module "monitor_action_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/monitor_action_group/azurerm"
   version = "~> 1.0.0"
@@ -48,13 +64,14 @@ module "monitor_action_group" {
   tags                = var.tags
   arm_role_receivers  = var.arm_role_receivers
   email_receivers     = var.email_receivers
+  depends_on          = [module.resource_group]
 }
 
 module "monitor_metric_alert" {
   source              = "../.."
   name                = var.name
   resource_group_name = module.resource_group.name
-  scopes              = var.scopes
+  scopes              = [module.public_ip.id]
   description         = var.description
   frequency           = var.frequency
   severity            = var.severity
