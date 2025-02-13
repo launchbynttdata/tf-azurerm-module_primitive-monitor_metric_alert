@@ -25,8 +25,8 @@ severity           = 2
 enabled            = true
 webhook_properties = { key1 = "value1", key2 = "value2" }
 
-metric_namespace = "micosoft.network/publicipaddresses"
-metric_name      = "PacketCount"
+metric_namespace = "Micosoft.Network/publicIPAddresses"
+metric_name      = "PacketsInDDoS"
 aggregation      = "Average"
 operator         = "GreaterThan"
 threshold        = 80
