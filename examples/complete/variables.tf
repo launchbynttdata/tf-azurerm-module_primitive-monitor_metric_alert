@@ -77,7 +77,7 @@ variable "resource_names_map" {
 
   default = {
     resource_group = {
-      name       = "rg"
+      name       = "rgn"
       max_length = 90
     }
   }
