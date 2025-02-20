@@ -3,11 +3,6 @@ variable "name" {
   description = "The name of the Metric Alert."
 }
 
-# variable "scopes" {
-#   type        = list(string)
-#   description = "The list of resources to monitor."
-# }
-
 variable "description" {
   type        = string
   description = "(optional)The description of the Metric Alert."
@@ -34,38 +29,21 @@ variable "webhook_properties" {
   description = "(optional)The webhook properties."
 }
 
-variable "metric_namespace" {
-  type        = string
-  description = "The namespace of the metric."
-}
-
-variable "metric_name" {
-  type        = string
-  description = "The name of the metric."
-}
-
-variable "aggregation" {
-  type        = string
-  description = "The aggregation type of the metric(e.g., 'Average', 'Total')."
-}
-
-variable "operator" {
-  type        = string
-  description = "The comparison operator (e.g., 'GreaterThan')."
-}
-
-variable "threshold" {
-  type        = number
-  description = "The threshold value."
-}
-
-variable "dimensions" {
+variable "criteria" {
+  description = "List of metric criteria for the alert"
   type = list(object({
-    name     = string
-    operator = string
-    values   = list(string)
+    metric_namespace       = string
+    metric_name            = string
+    aggregation            = string
+    operator               = string
+    threshold              = number
+    skip_metric_validation = optional(bool, false)
+    dimensions = optional(list(object({
+      name     = string
+      operator = string
+      values   = list(string)
+    })), [])
   }))
-  description = "The list of metric dimensions."
 }
 
 variable "resource_names_map" {
@@ -77,8 +55,12 @@ variable "resource_names_map" {
 
   default = {
     resource_group = {
-      name       = "rgn"
+      name       = "rg"
       max_length = 90
+    }
+    public_ip = {
+      name       = "pip"
+      max_length = 60
     }
   }
 }

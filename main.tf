@@ -25,24 +25,26 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
     webhook_properties = var.webhook_properties
   }
 
-  criteria {
+  dynamic "criteria" {
+    for_each = var.criteria
+    content {
+      metric_namespace       = criteria.value.metric_namespace
+      metric_name            = criteria.value.metric_name
+      aggregation            = criteria.value.aggregation
+      operator               = criteria.value.operator
+      threshold              = criteria.value.threshold
+      skip_metric_validation = lookup(criteria.value, "skip_metric_validation", false)
 
-    metric_namespace = var.metric_namespace
-    metric_name      = var.metric_name
-    aggregation      = var.aggregation
-    operator         = var.operator
-    threshold        = var.threshold
-
-    dynamic "dimension" {
-      for_each = var.dimensions
-      content {
-        name     = dimension.value.name
-        operator = dimension.value.operator
-        values   = dimension.value.values
+      dynamic "dimension" {
+        for_each = lookup(criteria.value, "dimensions", [])
+        content {
+          name     = dimension.value.name
+          operator = dimension.value.operator
+          values   = dimension.value.values
+        }
       }
     }
   }
-
   tags = var.tags
 
 }

@@ -38,40 +38,6 @@ variable "webhook_properties" {
   description = "(optional)The webhook properties."
 }
 
-variable "metric_namespace" {
-  type        = string
-  description = "The namespace of the metric."
-}
-
-variable "metric_name" {
-  type        = string
-  description = "The name of the metric."
-}
-
-variable "aggregation" {
-  type        = string
-  description = "The aggregation type of the metric(e.g., 'Average', 'Total')."
-}
-
-variable "operator" {
-  type        = string
-  description = "The comparison operator (e.g., 'GreaterThan')."
-}
-
-variable "threshold" {
-  type        = number
-  description = "The threshold value."
-}
-
-variable "dimensions" {
-  type = list(object({
-    name     = string
-    operator = string
-    values   = list(string)
-  }))
-  description = "The list of metric dimensions."
-}
-
 variable "tags" {
   type        = map(string)
   description = "(Optional) A mapping of tags to assign to the resource."
@@ -81,4 +47,21 @@ variable "tags" {
 variable "resource_group_name" {
   type        = string
   description = "The name of the resource group."
+}
+
+variable "criteria" {
+  description = "List of metric criteria for the alert"
+  type = list(object({
+    metric_namespace       = string
+    metric_name            = string
+    aggregation            = string
+    operator               = string
+    threshold              = string
+    skip_metric_validation = optional(bool, false)
+    dimensions = optional(list(object({
+      name     = string
+      operator = string
+      values   = list(string)
+    })), [])
+  }))
 }

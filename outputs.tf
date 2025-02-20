@@ -15,3 +15,8 @@ output "metric_alert_id" {
   value       = azurerm_monitor_metric_alert.monitor_metric_alert.id
   description = "The ID of the Metric Alert."
 }
+
+output "name" {
+  description = "The name of the metric alert"
+  value       = azurerm_monitor_metric_alert.monitor_metric_alert.name
+}

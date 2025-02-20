@@ -6,7 +6,6 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
-| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 3.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.113 |
 
 ## Providers
@@ -37,13 +36,8 @@ No resources.
 | <a name="input_severity"></a> [severity](#input\_severity) | (optional)The severity of alert. | `number` | n/a | yes |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | (optional)Whether the alert is enabled. | `bool` | n/a | yes |
 | <a name="input_webhook_properties"></a> [webhook\_properties](#input\_webhook\_properties) | (optional)The webhook properties. | `map(string)` | n/a | yes |
-| <a name="input_metric_namespace"></a> [metric\_namespace](#input\_metric\_namespace) | The namespace of the metric. | `string` | n/a | yes |
-| <a name="input_metric_name"></a> [metric\_name](#input\_metric\_name) | The name of the metric. | `string` | n/a | yes |
-| <a name="input_aggregation"></a> [aggregation](#input\_aggregation) | The aggregation type of the metric(e.g., 'Average', 'Total'). | `string` | n/a | yes |
-| <a name="input_operator"></a> [operator](#input\_operator) | The comparison operator (e.g., 'GreaterThan'). | `string` | n/a | yes |
-| <a name="input_threshold"></a> [threshold](#input\_threshold) | The threshold value. | `number` | n/a | yes |
-| <a name="input_dimensions"></a> [dimensions](#input\_dimensions) | The list of metric dimensions. | <pre>list(object({<br>    name     = string<br>    operator = string<br>    values   = list(string)<br>  }))</pre> | n/a | yes |
-| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | A map of key to resource\_name that will be used by tf-launch-module\_library-resource\_name to generate resource names | <pre>map(object({<br>    name       = string<br>    max_length = optional(number, 60)<br>  }))</pre> | <pre>{<br>  "resource_group": {<br>    "max_length": 90,<br>    "name": "rgn"<br>  }<br>}</pre> | no |
+| <a name="input_criteria"></a> [criteria](#input\_criteria) | List of metric criteria for the alert | <pre>list(object({<br>    metric_namespace       = string<br>    metric_name            = string<br>    aggregation            = string<br>    operator               = string<br>    threshold              = number<br>    skip_metric_validation = optional(bool, false)<br>    dimensions = optional(list(object({<br>      name     = string<br>      operator = string<br>      values   = list(string)<br>    })), [])<br>  }))</pre> | n/a | yes |
+| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | A map of key to resource\_name that will be used by tf-launch-module\_library-resource\_name to generate resource names | <pre>map(object({<br>    name       = string<br>    max_length = optional(number, 60)<br>  }))</pre> | <pre>{<br>  "public_ip": {<br>    "max_length": 60,<br>    "name": "pip"<br>  },<br>  "resource_group": {<br>    "max_length": 90,<br>    "name": "rg"<br>  }<br>}</pre> | no |
 | <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | (Required) Name of the product family for which the resource is created.<br>    Example: org\_name, department\_name. | `string` | `"launch"` | no |
 | <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | (Required) Name of the product service for which the resource is created.<br>    For example, backend, frontend, middleware etc. | `string` | `"network"` | no |
 | <a name="input_region"></a> [region](#input\_region) | (Required) The location where the resource will be created. Must not have spaces<br>    For example, eastus, westus, centralus etc. | `string` | `"eastus2"` | no |
@@ -62,4 +56,7 @@ No resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_metric_alert_id"></a> [metric\_alert\_id](#output\_metric\_alert\_id) | The ID of the created Metric Alert |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource group name of the managed action group instance |
+| <a name="output_monitor_metric_alert_name"></a> [monitor\_metric\_alert\_name](#output\_monitor\_metric\_alert\_name) | The name of the alert |
+| <a name="output_action_group_id"></a> [action\_group\_id](#output\_action\_group\_id) | The ID of the created action group. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
