@@ -23,12 +23,13 @@ severity           = 2
 enabled            = true
 webhook_properties = { example1 = "example", example2 = "example" }
 
-criteria = [{
+dynamic_criteria = [{
   metric_namespace       = "Microsoft.Network/publicIPAddresses"
   metric_name            = "PacketsInDDoS"
   aggregation            = "Average"
   operator               = "GreaterThan"
-  threshold              = 10
+  alert_sensitivity      = "High"
+  ignore_data_before     = "2023-01-01T00:00:00Z"
   skip_metric_validation = true
 
 }]

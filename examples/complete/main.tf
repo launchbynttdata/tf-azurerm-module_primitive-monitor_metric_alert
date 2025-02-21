@@ -75,7 +75,7 @@ module "monitor_metric_alert" {
   action_group_ids    = module.monitor_action_group.action_group_id
   webhook_properties  = var.webhook_properties
 
-  criteria   = var.criteria
-  depends_on = [module.resource_group]
+  dynamic_criteria = var.dynamic_criteria
+  depends_on       = [module.resource_group]
 
 }

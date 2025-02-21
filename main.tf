@@ -25,18 +25,19 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
     webhook_properties = var.webhook_properties
   }
 
-  dynamic "criteria" {
-    for_each = var.criteria
+  dynamic "dynamic_criteria" {
+    for_each = var.dynamic_criteria
     content {
-      metric_namespace       = criteria.value.metric_namespace
-      metric_name            = criteria.value.metric_name
-      aggregation            = criteria.value.aggregation
-      operator               = criteria.value.operator
-      threshold              = criteria.value.threshold
-      skip_metric_validation = lookup(criteria.value, "skip_metric_validation", false)
+      metric_namespace       = dynamic_criteria.value.metric_namespace
+      metric_name            = dynamic_criteria.value.metric_name
+      aggregation            = dynamic_criteria.value.aggregation
+      operator               = dynamic_criteria.value.operator
+      alert_sensitivity      = dynamic_criteria.value.alert_sensitivity
+      ignore_data_before     = dynamic_criteria.value.ignore_data_before
+      skip_metric_validation = lookup(dynamic_criteria.value, "skip_metric_validation", false)
 
       dynamic "dimension" {
-        for_each = lookup(criteria.value, "dimensions", [])
+        for_each = lookup(dynamic_criteria.value, "dimensions", [])
         content {
           name     = dimension.value.name
           operator = dimension.value.operator

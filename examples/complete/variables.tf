@@ -29,14 +29,15 @@ variable "webhook_properties" {
   description = "(optional)The webhook properties."
 }
 
-variable "criteria" {
+variable "dynamic_criteria" {
   description = "List of metric criteria for the alert"
   type = list(object({
     metric_namespace       = string
     metric_name            = string
     aggregation            = string
     operator               = string
-    threshold              = number
+    alert_sensitivity      = string
+    ignore_data_before     = string
     skip_metric_validation = optional(bool, false)
     dimensions = optional(list(object({
       name     = string

@@ -37,7 +37,7 @@ No modules.
 | <a name="input_webhook_properties"></a> [webhook\_properties](#input\_webhook\_properties) | (optional)The webhook properties. | `map(string)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to the resource. | `map(string)` | `{}` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group. | `string` | n/a | yes |
-| <a name="input_criteria"></a> [criteria](#input\_criteria) | List of metric criteria for the alert | <pre>list(object({<br>    metric_namespace       = string<br>    metric_name            = string<br>    aggregation            = string<br>    operator               = string<br>    threshold              = string<br>    skip_metric_validation = optional(bool, false)<br>    dimensions = optional(list(object({<br>      name     = string<br>      operator = string<br>      values   = list(string)<br>    })), [])<br>  }))</pre> | n/a | yes |
+| <a name="input_dynamic_criteria"></a> [dynamic\_criteria](#input\_dynamic\_criteria) | List of metric criteria for the alert | <pre>list(object({<br>    metric_namespace       = string<br>    metric_name            = string<br>    aggregation            = string<br>    operator               = string<br>    alert_sensitivity      = string<br>    ignore_data_before     = string<br>    skip_metric_validation = optional(bool, false)<br>    dimensions = optional(list(object({<br>      name     = string<br>      operator = string<br>      values   = list(string)<br>    })), [])<br>  }))</pre> | n/a | yes |
 
 ## Outputs
 
