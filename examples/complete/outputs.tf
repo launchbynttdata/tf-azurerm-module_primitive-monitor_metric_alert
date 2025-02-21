@@ -14,3 +14,18 @@ output "metric_alert_id" {
   value       = module.monitor_metric_alert.metric_alert_id
   description = "The ID of the created Metric Alert"
 }
+
+output "resource_group_name" {
+  description = "Resource group name of the managed action group instance"
+  value       = module.resource_group.name
+}
+
+output "monitor_metric_alert_name" {
+  description = "The name of the alert"
+  value       = module.monitor_metric_alert.name
+}
+
+output "action_group_id" {
+  description = "The ID of the created action group."
+  value       = module.monitor_action_group.action_group_id
+}

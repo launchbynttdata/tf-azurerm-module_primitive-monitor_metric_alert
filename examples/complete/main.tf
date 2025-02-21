@@ -42,14 +42,10 @@ module "public_ip" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm"
   version = "~> 1.0"
 
-  name                = "ip-name" #module.resource_names["public_ip"].minimal_random_suffix
-  resource_group_name = local.resource_group_name
+  name                = module.resource_names["public_ip"].minimal_random_suffix #"ip-name" #module.resource_names["public_ip"].minimal_random_suffix
+  resource_group_name = module.resource_group.name
   location            = var.region
   allocation_method   = var.allocation_method
-
-  # tags = merge(local.tags, {
-  #   resource_name = module.resource_names["public_ip"].minimal_random_suffix
-  # })
 
   depends_on = [module.resource_group]
 }
@@ -76,18 +72,12 @@ module "monitor_metric_alert" {
   frequency           = var.frequency
   severity            = var.severity
   enabled             = var.enabled
+  action_group_ids    = module.monitor_action_group.action_group_id
+  webhook_properties  = var.webhook_properties
 
-  action_group_ids   = module.monitor_action_group.action_group_id
-  webhook_properties = var.webhook_properties
+  criteria = var.criteria
 
+  dynamic_criteria = var.dynamic_criteria
+  depends_on       = [module.resource_group]
 
-  metric_namespace = var.metric_namespace
-  metric_name      = var.metric_name
-  aggregation      = var.aggregation
-  operator         = var.operator
-  threshold        = var.threshold
-
-  dimensions = var.dimensions
-
-  depends_on = [module.resource_group]
 }
