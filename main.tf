@@ -47,7 +47,7 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   }
 
   dynamic "dynamic_criteria" {
-    for_each = var.dynamic_criteria
+    for_each = var.dynamic_criteria != null ? { "enabled" = var.dynamic_criteria } : {}
     content {
       metric_namespace       = dynamic_criteria.value.metric_namespace
       metric_name            = dynamic_criteria.value.metric_name

@@ -50,25 +50,25 @@ variable "resource_group_name" {
 }
 
 variable "dynamic_criteria" {
-  description = "List of metric criteria for the alert"
-  type = list(object({
+  description = "Lets us set a dynamic criteria for the alert"
+  type = object({
     metric_namespace       = string
     metric_name            = string
     aggregation            = string
     operator               = string
     alert_sensitivity      = string
-    ignore_data_before     = string
+    ignore_data_before     = optional(string)
     skip_metric_validation = optional(bool, false)
     dimensions = optional(list(object({
       name     = string
       operator = string
       values   = list(string)
     })), [])
-  }))
+  })
 }
 
 variable "criteria" {
-  description = "List of metric criteria for the alert"
+  description = "Lets us set criteria for the alert"
   type = list(object({
     metric_namespace       = string
     metric_name            = string

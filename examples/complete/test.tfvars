@@ -33,4 +33,4 @@ criteria = [{
 
 }]
 
-dynamic_criteria = []
+dynamic_criteria = null
