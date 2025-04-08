@@ -42,7 +42,7 @@ module "public_ip" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm"
   version = "~> 1.0"
 
-  name                = module.resource_names["public_ip"].minimal_random_suffix #"ip-name" #module.resource_names["public_ip"].minimal_random_suffix
+  name                = module.resource_names["public_ip"].minimal_random_suffix
   resource_group_name = module.resource_group.name
   location            = var.region
   allocation_method   = var.allocation_method
@@ -72,7 +72,7 @@ module "monitor_metric_alert" {
   frequency           = var.frequency
   severity            = var.severity
   enabled             = var.enabled
-  action_group_ids    = module.monitor_action_group.action_group_id
+  action_group_ids    = concat([module.monitor_action_group.action_group_id], var.action_group_ids)
   webhook_properties  = var.webhook_properties
 
   criteria = var.criteria

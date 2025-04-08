@@ -19,10 +19,15 @@ resource "azurerm_monitor_metric_alert" "monitor_metric_alert" {
   enabled             = var.enabled
   description         = var.description
   frequency           = var.frequency
+  window_size         = var.window_size
+  auto_mitigate       = var.auto_mitigate
 
-  action {
-    action_group_id    = var.action_group_ids
-    webhook_properties = var.webhook_properties
+  dynamic "action" {
+    for_each = var.action_group_ids
+    content {
+      action_group_id    = action.value
+      webhook_properties = var.webhook_properties
+    }
   }
 
   dynamic "criteria" {
