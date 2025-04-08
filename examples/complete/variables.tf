@@ -1,33 +1,45 @@
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 variable "name" {
   type        = string
-  description = "The name of the Metric Alert."
+  description = "(Required) The name of the Metric Alert."
 }
 
 variable "description" {
   type        = string
-  description = "(optional)The description of the Metric Alert."
+  description = "(Optional) The description of the Metric Alert."
 }
 
 variable "frequency" {
   type        = string
-  description = "(optional)The evaluation frequency in seconds."
+  description = "(Optional) The evaluation frequency. Defaults to PT1M."
 }
 
 variable "severity" {
   type        = number
-  description = "(optional)The severity of alert."
+  description = "(Optional) The severity of alert. Possible values are 0, 1, 2, 3 and 4. Defaults to 3."
 }
 
 variable "enabled" {
   type        = bool
-  description = "(optional)Whether the alert is enabled."
+  description = "(Optional) Whether the alert is enabled."
 }
-
 
 variable "webhook_properties" {
   type        = map(string)
-  description = "(optional)The webhook properties."
+  description = "(Optional) The webhook properties."
 }
+
 
 variable "dynamic_criteria" {
   description = "A single metric dynamic criteria for the alert"

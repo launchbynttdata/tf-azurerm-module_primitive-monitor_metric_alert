@@ -10,7 +10,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 output "metric_alert_id" {
   value       = azurerm_monitor_metric_alert.monitor_metric_alert.id
   description = "The ID of the Metric Alert."
