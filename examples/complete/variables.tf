@@ -22,12 +22,14 @@ variable "description" {
 
 variable "frequency" {
   type        = string
-  description = "(Optional) The evaluation frequency. Defaults to PT1M."
+  description = "(Optional) The evaluation frequency. Allowed values are PT1M, PT5M, PT15M, PT30M and PT1H. Defaults to PT1M."
+  default     = "PT1M"
 }
 
 variable "severity" {
   type        = number
   description = "(Optional) The severity of alert. Possible values are 0, 1, 2, 3 and 4. Defaults to 3."
+  default     = 3
 }
 
 variable "enabled" {
@@ -46,9 +48,8 @@ variable "webhook_properties" {
   description = "(Optional) The webhook properties."
 }
 
-
 variable "dynamic_criteria" {
-  description = "A single metric dynamic criteria for the alert"
+  description = "(Optional) A single metric dynamic criteria for the alert"
   type = object({
     metric_namespace       = string
     metric_name            = string
@@ -66,7 +67,7 @@ variable "dynamic_criteria" {
 }
 
 variable "criteria" {
-  description = "List of metric criteria for the alert"
+  description = "(Optional) List of metric criteria for the alert"
   type = list(object({
     metric_namespace       = string
     metric_name            = string

@@ -28,10 +28,10 @@ variable "description" {
 
 variable "frequency" {
   type        = string
-  description = "(Optional) The evaluation frequency. Defaults to PT1M."
+  description = "(Optional) The evaluation frequency. Allowed values are PT1M, PT5M, PT15M, PT30M and PT1H. Defaults to PT1M."
   validation {
-    condition     = can(regex("^PT([0-9]+H)?([0-9]+M)?$", var.frequency))
-    error_message = "Frequency must be in ISO 8601 duration format (e.g., PT5M, PT1H, PT12H)."
+    condition     = contains(["PT1M", "PT5M", "PT15M", "PT30M", "PT1H"], var.frequency)
+    error_message = "Frequency must be one of: PT1M, PT5M, PT15M, PT30M, PT1H."
   }
   default = "PT1M"
 }
@@ -64,10 +64,10 @@ variable "webhook_properties" {
 
 variable "window_size" {
   type        = string
-  description = "(Optional) The window size. This value must be greater than `frequency`. Defaults to PT5M."
+  description = "(Optional) The window size. Allowed values are PT1M, PT5M, PT15M, PT30M, PT1H, PT6H, PT12H and P1D. Defaults to PT5M."
   validation {
-    condition     = can(regex("^PT([0-9]+H)?([0-9]+M)?$", var.window_size))
-    error_message = "Window size must be in ISO 8601 duration format (e.g., PT5M, PT1H, PT12H)."
+    condition     = contains(["PT1M", "PT5M", "PT15M", "PT30M", "PT1H", "PT6H", "PT12H", "P1D"], var.window_size)
+    error_message = "Window size must be one of: PT1M, PT5M, PT15M, PT30M, PT1H, PT6H, PT12H, P1D."
   }
   default = "PT5M"
 }
@@ -80,17 +80,17 @@ variable "auto_mitigate" {
 
 variable "tags" {
   type        = map(string)
-  description = "(Optional)  A mapping of tags to assign to the resource."
+  description = "(Optional) A mapping of tags to assign to the resource."
   default     = {}
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "The name of the resource group."
+  description = "(Required) The name of the resource group."
 }
 
 variable "dynamic_criteria" {
-  description = "A single metric dynamic criteria for the alert"
+  description = "(Optional) A single metric dynamic criteria for the alert"
   type = object({
     metric_namespace       = string
     metric_name            = string
@@ -108,7 +108,7 @@ variable "dynamic_criteria" {
 }
 
 variable "criteria" {
-  description = "List of metric criteria for the alert"
+  description = "(Optional) List of metric criteria for the alert"
   type = list(object({
     metric_namespace       = string
     metric_name            = string
