@@ -33,7 +33,7 @@ No modules.
 | <a name="input_frequency"></a> [frequency](#input\_frequency) | (Optional) The evaluation frequency. Defaults to PT1M. | `string` | `"PT1M"` | no |
 | <a name="input_severity"></a> [severity](#input\_severity) | (Optional) The severity of alert. Possible values are 0, 1, 2, 3 and 4. Defaults to 3. | `number` | `3` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | (Optional) Whether the alert is enabled. | `bool` | n/a | yes |
-| <a name="input_action_group_ids"></a> [action\_group\_ids](#input\_action\_group\_ids) | (Optional) The list of Action Group IDs. | `string` | n/a | yes |
+| <a name="input_action_group_ids"></a> [action\_group\_ids](#input\_action\_group\_ids) | (Optional) The list of Action Group IDs. | `list(string)` | `[]` | no |
 | <a name="input_webhook_properties"></a> [webhook\_properties](#input\_webhook\_properties) | (Optional) The webhook properties. | `map(string)` | n/a | yes |
 | <a name="input_window_size"></a> [window\_size](#input\_window\_size) | (Optional) The window size. This value must be greater than `frequency`. Defaults to PT5M. | `string` | `"PT5M"` | no |
 | <a name="input_auto_mitigate"></a> [auto\_mitigate](#input\_auto\_mitigate) | (Optional) Whether to automatically mitigate the alert. | `bool` | `false` | no |

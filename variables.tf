@@ -52,8 +52,9 @@ variable "enabled" {
 }
 
 variable "action_group_ids" {
-  type        = string
+  type        = list(string)
   description = "(Optional) The list of Action Group IDs."
+  default     = []
 }
 
 variable "webhook_properties" {

@@ -35,6 +35,12 @@ variable "enabled" {
   description = "(Optional) Whether the alert is enabled."
 }
 
+variable "action_group_ids" {
+  type        = list(string)
+  description = "(Optional) The list of Action Group IDs."
+  default     = []
+}
+
 variable "webhook_properties" {
   type        = map(string)
   description = "(Optional) The webhook properties."
