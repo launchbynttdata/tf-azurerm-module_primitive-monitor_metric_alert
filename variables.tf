@@ -74,8 +74,8 @@ variable "window_size" {
 
 variable "auto_mitigate" {
   type        = bool
-  description = "(Optional) Whether to automatically mitigate the alert."
-  default     = false
+  description = "(Optional) Whether to automatically mitigate the alert. Defaults to true."
+  default     = true
 }
 
 variable "tags" {
