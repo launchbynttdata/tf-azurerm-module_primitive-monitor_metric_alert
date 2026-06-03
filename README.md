@@ -1,17 +1,17 @@
 # tf-azurerm-module_primitive-monitor_metric_alert
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.117 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.77, < 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.117.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.75.0 |
 
 ## Modules
 
@@ -48,4 +48,4 @@ No modules.
 |------|-------------|
 | <a name="output_metric_alert_id"></a> [metric\_alert\_id](#output\_metric\_alert\_id) | The ID of the Metric Alert. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the metric alert |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
