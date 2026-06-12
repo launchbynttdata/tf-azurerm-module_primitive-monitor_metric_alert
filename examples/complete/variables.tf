@@ -232,6 +232,6 @@ variable "email_receivers" {
 
 variable "allocation_method" {
   type        = string
-  description = "(Optional) Defines the allocation method for this IP address. Possible values are Static or Dynamic. Defaults to Dynamic."
-  default     = "Dynamic"
+  description = "(Optional) Defines the allocation method for this IP address. Possible values are Static or Dynamic. Defaults to Static (required for Standard SKU)."
+  default     = "Static"
 }

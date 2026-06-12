@@ -1,3 +1,6 @@
+#public IP variables
+allocation_method = "Static"
+
 #action group variables
 action_group_name = "example-action-group"
 short_name        = "exAG"
