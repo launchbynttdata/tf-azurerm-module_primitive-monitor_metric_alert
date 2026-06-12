@@ -40,7 +40,7 @@ module "resource_group" {
 
 module "public_ip" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm"
-  version = "~> 1.1"
+  version = "~> 2.0"
 
   name                = module.resource_names["public_ip"].minimal_random_suffix
   resource_group_name = module.resource_group.name
