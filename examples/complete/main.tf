@@ -52,7 +52,7 @@ module "public_ip" {
 
 module "monitor_action_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/monitor_action_group/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.2"
 
   action_group_name   = var.action_group_name
   resource_group_name = module.resource_group.name
