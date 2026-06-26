@@ -29,7 +29,7 @@ module "resource_names" {
 
 module "resource_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.2"
 
   name     = local.resource_group_name
   location = var.region
@@ -40,7 +40,7 @@ module "resource_group" {
 
 module "public_ip" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   name                = module.resource_names["public_ip"].minimal_random_suffix
   resource_group_name = module.resource_group.name
@@ -52,7 +52,7 @@ module "public_ip" {
 
 module "monitor_action_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/monitor_action_group/azurerm"
-  version = "~> 1.0.0"
+  version = "~> 1.2"
 
   action_group_name   = var.action_group_name
   resource_group_name = module.resource_group.name
