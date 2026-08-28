@@ -39,5 +39,5 @@ func TestMetricAlerts(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestMetricAlertsModule)
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableMetricAlertsModule)
 }

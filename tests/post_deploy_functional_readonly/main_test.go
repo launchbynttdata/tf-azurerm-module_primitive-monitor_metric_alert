@@ -39,5 +39,5 @@ func TestMetricAlerts(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestMetricAlertsModule)
+	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestComposableMetricAlertsModule)
 }
