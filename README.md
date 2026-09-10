@@ -1,4 +1,32 @@
 # tf-azurerm-module_primitive-monitor_metric_alert
+
+## Overview
+
+This module creates Azure Monitor metric alerts with static or dynamic criteria, optional action groups, and configurable severity, evaluation frequency, and window size.
+
+## Usage
+
+```hcl
+module "monitor_metric_alert" {
+	source = "terraform.registry.launch.nttdata.com/module_primitive/monitor_metric_alert/azurerm"
+
+	name                = "example-metric-alert"
+	resource_group_name = "example-rg"
+	scopes              = ["/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.Compute/virtualMachines/example-vm"]
+	description         = "CPU utilization is high"
+
+	criteria = [
+		{
+			metric_namespace = "Microsoft.Compute/virtualMachines"
+			metric_name      = "Percentage CPU"
+			aggregation      = "Average"
+			operator         = "GreaterThan"
+			threshold        = 80
+		}
+	]
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -43,3 +71,62 @@ No modules.
 | <a name="output_metric_alert_id"></a> [metric\_alert\_id](#output\_metric\_alert\_id) | The ID of the Metric Alert. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the metric alert |
 <!-- END_TF_DOCS -->
+
+## Module Development
+
+Use this repository as a standard Launch Terraform primitive module.
+
+- Keep examples and tests aligned with code changes because they are part of the public contract.
+- Preserve generated files and automation patterns from the shared skeleton unless a module-specific exception is required.
+- Prefer make targets and pre-commit hooks over ad hoc commands to match CI behavior.
+
+## Pre-Requisites
+
+The following commands should be available on your system:
+
+- asdf or mise
+- make
+- python3 (for pre-commit)
+
+Install pinned tool versions and bootstrap dependencies from the repository root:
+
+```sh
+make configure
+```
+
+## Pre-Commit Hooks
+
+This repository uses [.pre-commit-config.yaml](.pre-commit-config.yaml) to run Terraform, Go, and repository hygiene checks.
+
+Install local hooks:
+
+```sh
+pre-commit install --hook-type commit-msg
+```
+
+Run all hooks manually:
+
+```sh
+pre-commit run --all-files
+```
+
+## Local Validation
+
+Run the same validations used in CI:
+
+```sh
+make lint
+make check
+```
+
+If a hook or generated file changes content (for example terraform-docs), commit the updates and rerun the checks.
+
+## Review And Merge Process
+
+- Open a pull request with a clear summary of functional and test-impacting changes.
+- Resolve all review comments and ensure CI is green before merge.
+- Keep commits focused and use conventional commit messages when possible.
+
+## Automatic Updates
+
+This repository receives periodic updates from the shared launch-terraform-skeleton baseline via Copier automation. Keep skeleton-managed files aligned with upstream expectations so automated updates continue to merge cleanly.
